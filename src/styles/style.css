@@ -1,0 +1,14 @@
+ @font-face {
+    font-family: 'MyFont';
+    src:  url('../fonts/DancingScript-Regular.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+body, button {
+    font-family: 'MyFont';
+}
+
+.hello {
+    color: red;
+}
