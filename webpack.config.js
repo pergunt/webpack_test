@@ -1,17 +1,23 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack')
 
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   entry: {
-    app: './src/index.js',
-    print: './src/print.js',
+    // app: './src/index.js',
+    reactApp: './src/react_test/index.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    hotOnly: true
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Output Management',
       favicon: './src/images/instagram.svg'
@@ -20,9 +26,22 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ["*", ".js", ".jsx"],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel-loader",
+        options: { presets: ["@babel/env"] }
+      },
       {
         test: /\.css$/,
         use: [
