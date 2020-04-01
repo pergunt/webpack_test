@@ -8,7 +8,43 @@
 body, button {
     font-family: 'MyFont';
 }
+#root {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    font-size: 50px;
+}
 
 .hello {
     color: red;
+}
+.collapseble {
+    -webkit-transition-property: max-height;
+    -moz-transition-property: max-height;
+    -ms-transition-property: max-height;
+    -o-transition-property: max-height;
+    transition-property: max-height;
+    -webkit-transition-duration: .5s;
+    -moz-transition-duration: .5s;
+    -ms-transition-duration: .5s;
+    -o-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    -ms-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    max-height: 0;
+}
+.switch-wrapper {
+    text-align: center;
+    position: relative;
+}
+ .switch-wrapper > * {
+     display: inline-block;
+ }
+
+ .switch-wrapper > div {
+    position: absolute;
 }
