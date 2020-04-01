@@ -1,25 +1,26 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack')
-
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
-  entry: {
-    // app: './src/index.js',
-    reactApp: './src/react_test/index.js'
+  entry: () => {
+    if (process.env.APP === 'react') {
+      return ['react-hot-loader/patch', './src/react_test'];
+    }
+    return './src/index.js';
   },
   devServer: {
     contentBase: './dist',
+    publicPath: "/",
     hotOnly: true
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Output Management',
+      template: 'src/template.html',
       favicon: './src/images/instagram.svg'
     }),
   ],
@@ -37,8 +38,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        test: /\.js$/,
+        exclude: /node_modules/,
         loader: "babel-loader",
         options: { presets: ["@babel/env"] }
       },
@@ -50,14 +51,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
         loader: 'file-loader',
         options: {
           name: '[path][name].[ext]',
