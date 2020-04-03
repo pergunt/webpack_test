@@ -8,6 +8,9 @@ import { AnimatedSwitch } from 'react-router-transition'
 import {Motion, spring, presets} from 'react-motion'
 import '../styles/style.css'
 
+import _ from 'lodash';
+console.log(_);
+
 const defaultStyle = {
   maxHeight: 0
 };

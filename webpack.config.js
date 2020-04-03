@@ -2,14 +2,30 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+/*
   entry: () => {
     if (process.env.APP === 'react') {
       return ['react-hot-loader/patch', './src/react_test'];
     }
     return './src/index.js';
+  },
+ */
+
+const ENTRY = './src/';
+
+module.exports = {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  entry: {
+    // app:  './src/index.js',
+    // reactApp:  ['react-hot-loader/patch', './src/react_test'],
+    dynamicImport: ['babel-polyfill', ENTRY + 'dynamicImport.js']
+  },
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   devServer: {
     contentBase: './dist',
@@ -19,22 +35,21 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Output Management',
-      template: 'src/template.html',
+      template: './src/template.html',
       favicon: './src/images/instagram.svg'
     }),
   ],
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-  },
   resolve: {
     extensions: ["*", ".js", ".jsx"],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // },
   module: {
     rules: [
       {
