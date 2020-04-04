@@ -15,6 +15,17 @@ const defaultStyle = {
   maxHeight: 0
 };
 
+import(
+  /* webpackPrefetch: 3 */
+  /* webpackChunkName: "first_prefetch" */
+  './first_prefetch'
+  );
+import(
+  /* webpackPrefetch: 4 */
+  /* webpackChunkName: "second_prefetch" */
+  './second_prefetch'
+  );
+
 const Counter = () => {
   const [count, setCount] = useState(0);
   const [style, setStyle] = useState(defaultStyle);
@@ -26,7 +37,7 @@ const Counter = () => {
     setStyle({
       maxHeight: !style.maxHeight.val || style.maxHeight.val < height ? spring(height)
         : spring(0, presets.stiff)
-    })
+    });
   };
   return (
     <Fragment>

@@ -18,8 +18,8 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     // app:  './src/index.js',
-    // reactApp:  ['react-hot-loader/patch', './src/react_test'],
-    dynamicImport: ['babel-polyfill', ENTRY + 'dynamicImport.js']
+    reactApp:  ['react-hot-loader/patch', './src/react_test'],
+    // dynamicImport: ['babel-polyfill', ENTRY + 'dynamicImport.js']
   },
   output: {
     filename: '[name].bundle.js',
