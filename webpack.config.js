@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 /*
   entry: () => {
@@ -18,23 +18,25 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     // app:  './src/index.js',
-    reactApp:  ['react-hot-loader/patch', './src/react_test'],
+    reactApp: ['react-hot-loader/patch', './src/react_test'],
     // dynamicImport: ['babel-polyfill', ENTRY + 'dynamicImport.js']
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[hash].js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/dist/',
   },
   devServer: {
     contentBase: './dist',
     publicPath: "/",
+    historyApiFallback: true,
     hotOnly: true
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      title: 'Caching',
       template: './src/template.html',
       favicon: './src/images/instagram.svg'
     }),
@@ -45,18 +47,28 @@ module.exports = {
       'react-dom': '@hot-loader/react-dom',
     },
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // },
+  optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        options: {
+          presets: ["@babel/env"]
+        }
       },
       {
         test: /\.css$/,

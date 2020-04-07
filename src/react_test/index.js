@@ -1,15 +1,13 @@
-import React, {useState, useRef, Fragment} from 'react'
-import {render} from 'react-dom'
+import React, {useState, useRef, Fragment} from 'react';
+import {render} from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import { AnimatedSwitch } from 'react-router-transition'
+import { AnimatedSwitch } from 'react-router-transition';
 
-import {Motion, spring, presets} from 'react-motion'
-import '../styles/style.css'
+import {Motion, spring, presets} from 'react-motion';
+import '../styles/style.css';
 
-import _ from 'lodash';
-console.log(_);
 
 const defaultStyle = {
   maxHeight: 0
